@@ -2,36 +2,39 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from tweepy import API
+import os
 
-consumer_key="Uqp2pItLIvmbTMrLDtswA"
-consumer_secret="QqRVaMlbZbsQsPeH6UB8iDJdNDOVRhLVPWZkiuhOQ"
-
-access_token="615753-dOh3c5ypD93yz2voj9qGkXEcKLXAvaYqr7OeojFPmr0"
-access_token_secret="P7o4aHQbJdk71tgNSLelVOVnfcvOqfUi8Z1OFG0nR4b77"
-
-class StdOutListener(StreamListener):
-    """ A listener handles tweets are the received from the stream.
-This is a basic listener that just prints received tweets to stdout.
-
-"""
-    def on_data(self, data):
-        print data
-        return True
-
-    def on_error(self, status):
-        print status
+consumer_key = os.environ['consumer_key'] 
+consumer_secret = os.environ['consumer_secret']
+access_token = os.environ['access_token']
+access_token_secret = os.environ['access_token_secret']
 
 if __name__ == '__main__':
-  #  l = StdOutListener()
 	auth = OAuthHandler(consumer_key, consumer_secret)
 	auth.set_access_token(access_token, access_token_secret)
 
-   # stream = Stream(auth, l)
-    #stream.filter(track=['hackyyc'])
-	
 	api = API(auth)
 
-	results = api.search(q="hackyyc")
-
+	results = api.search(q="hackyyc", include_entities = True)
 	for result in results:
-		print result.text
+		#print dir(result)
+		tweet_text = result.text
+		if result.geo:
+			print 'GEO not NONE'
+		entities = result.entities
+		if 'media' in entities:
+			curr_media = entities['media']
+			for media_item in curr_media:
+				if media_item['type'] == 'photo':
+					mid = media_item['id']
+					real_url = media_item['media_url']
+					twitter_url = media_item['display_url']
+					print mid
+					print real_url, twitter_url
+					print (media_item)
+					print '----'
+
+
+	
+		
+		
