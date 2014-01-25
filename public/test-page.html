@@ -37,13 +37,13 @@ $("#save").click( function(){
 $("#canvas").click(function(e){
   var x = Math.floor((e.pageX-$("#canvas").offset().left) );
   var y = Math.floor((e.pageY-$("#canvas").offset().top) );
-  Fluffy.ImgEdit.addImage( "penguin1a.png", x, y );
+  Fluffy.ImgEdit.addImage( "penguin1b.png", x, y );
 });
 
 $("#canvas").mousemove(function(e){
   var x = Math.floor((e.pageX-$("#canvas").offset().left) );
   var y = Math.floor((e.pageY-$("#canvas").offset().top) );
-  Fluffy.ImgEdit.animateImage( "penguin1a.png", x, y );
+  Fluffy.ImgEdit.animateImage( "penguin1b.png", x, y );
 });
 
 </script>
