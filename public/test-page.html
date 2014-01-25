@@ -31,7 +31,7 @@ $("#load").click( function(){
 
 $("#save").click( function(){
    var imgData = Fluffy.ImgEdit.getImage();
-   $.post( "images" , imgData );
+   $.post( "images" , imgData, null, 'multipart/form-data' );
 });
 
 $("#canvas").click(function(e){
