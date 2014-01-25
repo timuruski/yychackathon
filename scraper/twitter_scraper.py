@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from tweepy.streaming import StreamListener
+#from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
-from tweepy import Stream
+#from tweepy import Stream
 from tweepy import API
 import os
 import time
