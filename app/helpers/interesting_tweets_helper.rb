@@ -1,0 +1,2 @@
+module InterestingTweetsHelper
+end
