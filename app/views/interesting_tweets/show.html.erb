@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<%= render partial: 'list', locals: { tweets: @interesting_tweets, current: @interesting_tweet } %>
+
+<div id="tweet">
+  <h2><%= @interesting_tweet.username %></h2>
+  <p><%= @interesting_tweet.text %></p>
+</div>
+
+<%= link_to 'Back', interesting_tweets_path %>
+<%= link_to 'Destroy', @interesting_tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
