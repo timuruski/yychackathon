@@ -10,6 +10,7 @@ class InterestingTweetsController < ApplicationController
   # GET /interesting_tweets/1
   # GET /interesting_tweets/1.json
   def show
+    @interesting_tweets = InterestingTweet.all
   end
 
   # GET /interesting_tweets/new

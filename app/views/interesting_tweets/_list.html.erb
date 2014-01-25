@@ -1,0 +1,10 @@
+<ul class="list-group">
+  <% tweets.each do |tweet| %>
+    <li class="<%= current?(tweet) ? 'current' : nil %>">
+    <%= link_to tweet do %>
+      <span class="username"><%= tweet.username %></span>
+      <span class="excerpt"><%= tweet.excerpt %></span>
+    <% end %>
+    </li>
+  <% end %>
+</ul>
