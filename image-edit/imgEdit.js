@@ -29,8 +29,13 @@ Fluffy.ImgEdit = function() // setup module
     {
     }
 
-    function addImage( x, y, url )
+    function addImage( url, x, y  )
     {
+	var image = new Image;
+	image.onload = function(){
+	    ctx.drawImage(image,x,y);
+	};
+	image.src = url;
     }
 
     var publicExport =
