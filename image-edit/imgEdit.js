@@ -27,6 +27,7 @@ Fluffy.ImgEdit = function() // setup module
 
     function saveImage( url )
     {
+	var data = canvas.toDataURL("image/png");
     }
 
     function addImage( url, x, y  )
