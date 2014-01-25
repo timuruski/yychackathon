@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <% tweets.each do |tweet| %>
+    <li>
+      <span class="username"><%= tweet.username %></span>
+      <span class="excerpt"><%= tweet.excerpt %></span>
+    </li>
+  <% end %>
+</ul>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>ManagerSite</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="container" class="container">
+  <%= yield %>
+  </div>
 </body>
 </html>

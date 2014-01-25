@@ -1,25 +1,2 @@
 <h1>Listing interesting_tweets</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @interesting_tweets.each do |interesting_tweet| %>
-      <tr>
-        <td><%= link_to 'Show', interesting_tweet %></td>
-        <td><%= link_to 'Edit', edit_interesting_tweet_path(interesting_tweet) %></td>
-        <td><%= link_to 'Destroy', interesting_tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Interesting tweet', new_interesting_tweet_path %>
+<%= render partial: 'list', locals: { tweets: @interesting_tweets } %>
