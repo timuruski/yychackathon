@@ -12,6 +12,8 @@ consumer_secret = os.environ['consumer_secret']
 access_token = os.environ['access_token']
 access_token_secret = os.environ['access_token_secret']
 
+HASH_TAG = "#hackyyc"
+
 
 """
     t.string   "tweet_id"
@@ -26,8 +28,11 @@ access_token_secret = os.environ['access_token_secret']
 
 def process_photo(**kwargs):
 	for key, value in kwargs.iteritems():
-		print "%s : %s" % (key, value)
+		if hasattr(value, 'encode'):
+			ascii_value = value.encode("ascii","ignore")
+			print "%s : %s" % (key, ascii_value)
 	print '---'
+
 
 
 if __name__ == '__main__':
@@ -37,7 +42,7 @@ if __name__ == '__main__':
 
 		api = API(auth)
 
-		results = api.search(q="hackyyc", include_entities = True)
+		results = api.search(q=HASH_TAG, include_entities = True)
 		for result in results:
 			uid = result.author.id
 			uname = result.author.name
