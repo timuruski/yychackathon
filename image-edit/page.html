@@ -15,6 +15,11 @@
 <body>
 <h1> Test Page </h1>
 
+<button id="load" > Load </button>
+<button id="save" > Save </button>
+
+<br/>
+
 <canvas id="canvas" width="500" height="500"></canvas>
 
 
@@ -26,9 +31,20 @@
 
 <script>
 Fluffy.ImgEdit.setCanvas( document.getElementById('canvas') );
-Fluffy.ImgEdit.loadImage( "input.jpg" );
 
-Fluffy.ImgEdit.addImage( "penguin1a.png", 100, 100 );
+$("#load").click( function(){
+  Fluffy.ImgEdit.loadImage( "input.jpg" );
+});
+
+$("#save").click( function(){
+ // TODO 
+});
+
+$("#canvas").click(function(e){
+  var x = Math.floor((e.pageX-$("#canvas").offset().left) );
+  var y = Math.floor((e.pageY-$("#canvas").offset().top) );
+  Fluffy.ImgEdit.addImage( "penguin1a.png", x, y );
+});
 
 </script>
 
