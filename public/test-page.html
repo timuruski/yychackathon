@@ -30,7 +30,8 @@ $("#load").click( function(){
 });
 
 $("#save").click( function(){
-   Fluffy.ImgEdit.saveImage( "output.jpg" );
+   var imgData = Fluffy.ImgEdit.getImage();
+   $.post( "imageSave" , imgData );
 });
 
 $("#canvas").click(function(e){
