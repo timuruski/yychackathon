@@ -6,8 +6,12 @@ Fluffy.ImgEdit = function() // setup module
     var cavans;
     var ctx;
 
+    var baseImage;
+    var setLogo;
+
     function init()
     {
+	setLogo = true;
     }
 
     function setCanvas( c )
@@ -18,11 +22,12 @@ Fluffy.ImgEdit = function() // setup module
 
     function loadImage( url )
     {
-	var image = new Image;
-	image.onload = function(){
-	    ctx.drawImage(image,0,0);
+	baseImage = new Image;
+	baseImage.onload = function(){
+	    ctx.drawImage(baseImage,0,0);
+	    setLogo = false;
 	};
-	image.src = url;
+	baseImage.src = url;
     }
 
     function getImage()
@@ -35,6 +40,20 @@ Fluffy.ImgEdit = function() // setup module
 	var image = new Image;
 	image.onload = function(){
 	    ctx.drawImage(image,x,y);
+	    setLogo = true;
+	};
+	image.src = url;
+    }
+
+    function animateImage( url, x, y  )
+    {
+	if ( setLogo ) {
+	    return;
+	}
+	var image = new Image;
+	ctx.drawImage(baseImage,0,0);
+	image.onload = function(){
+	    ctx.drawImage(image,x,y);
 	};
 	image.src = url;
     }
@@ -45,6 +64,7 @@ Fluffy.ImgEdit = function() // setup module
 	    loadImage: loadImage,
 	    getImage: getImage,
 	    addImage: addImage,
+	    animateImage: animateImage,
             init: init
         };
 

@@ -31,13 +31,19 @@ $("#load").click( function(){
 
 $("#save").click( function(){
    var imgData = Fluffy.ImgEdit.getImage();
-   $.post( "imageSave" , imgData );
+   $.post( "images" , imgData );
 });
 
 $("#canvas").click(function(e){
   var x = Math.floor((e.pageX-$("#canvas").offset().left) );
   var y = Math.floor((e.pageY-$("#canvas").offset().top) );
   Fluffy.ImgEdit.addImage( "penguin1a.png", x, y );
+});
+
+$("#canvas").mousemove(function(e){
+  var x = Math.floor((e.pageX-$("#canvas").offset().left) );
+  var y = Math.floor((e.pageY-$("#canvas").offset().top) );
+  Fluffy.ImgEdit.animateImage( "penguin1a.png", x, y );
 });
 
 </script>
