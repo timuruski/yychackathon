@@ -1,5 +1,4 @@
 
-
 var Fluffy = Fluffy || {}; // setup namespace
 
 Fluffy.ImgEdit = function() // setup module 
