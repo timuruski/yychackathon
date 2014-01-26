@@ -1,9 +1,15 @@
 <p id="notice"><%= notice %></p>
 <%= render partial: 'list', locals: { tweets: @interesting_tweets, current: @interesting_tweet } %>
 
-<div id="tweet">
+<div id="interesting_tweet">
   <h2><%= @interesting_tweet.username %></h2>
   <p><%= @interesting_tweet.text %></p>
+  <div><%= image_tag @interesting_tweet.image_url %></div>
+</div>
+
+<div id="reply_tweet">
+  <h2>Reply</h2>
+  <p></p>
 </div>
 
 <%= link_to 'Back', interesting_tweets_path %>

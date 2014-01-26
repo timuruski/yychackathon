@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125192239) do
+ActiveRecord::Schema.define(version: 20140126011133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "images", force: true do |t|
+    t.integer "interesting_tweet_id"
+    t.string  "original_url"
+    t.string  "media_id"
+    t.binary  "data"
+  end
 
   create_table "interesting_tweets", force: true do |t|
     t.string   "tweet_id"
@@ -25,6 +32,14 @@ ActiveRecord::Schema.define(version: 20140125192239) do
     t.float    "longitude"
     t.text     "raw"
     t.string   "text"
+  end
+
+  create_table "replies", force: true do |t|
+    t.integer  "interesting_tweet_id"
+    t.integer  "image_id"
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

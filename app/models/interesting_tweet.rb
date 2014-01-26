@@ -5,4 +5,8 @@ class InterestingTweet < ActiveRecord::Base
     text[0..20]
   end
 
+  def image_url
+    "http://placekitten.com/200/300"
+  end
+
 end
