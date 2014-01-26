@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<div id="interesting_tweet" class="row">
+  <div class="col-xs-4">
+    <h2>@username</h2>
+    <p>Can haz cheezeburger?</p>
+  </div>
+  <div class="col-xs-4">
+    <%= image_tag 'http://placekitten.com/200/300' %>
+  </div>
+  <div class="col-xs-4">
+    <%= image_tag 'http://placekitten.com/200/300' %>
+  </div>
+</div>
+
+<div id="reply_tweet" class="row">
+  <div class="col-xs-6">
+    <h2>Reply</h2>
+    <%= form_for @reply do |reply_form| %>
+      <div class="form-group">
+        <%= reply_form.hidden_field :interesting_tweet_id, value: 1 %>
+        <%= reply_form.text_area :text, size: '60x8' %>
+      </div>
+      <div class="form-group">
+        <%= reply_form.submit 'Submit', class: 'btn btn-default' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%# link_to 'Destroy', @interesting_tweet, method: :delete, data: { confirm: 'Are you sure?' } %>

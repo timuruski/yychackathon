@@ -1,5 +1,5 @@
 ManagerSite::Application.routes.draw do
-  resources :interesting_tweets
+  resources :interesting_tweets, only: [:index, :show, :destroy]
   resources :images, only: [:index, :show, :create]
   resources :replies, only: [:create]
 
