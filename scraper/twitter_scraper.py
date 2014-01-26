@@ -6,11 +6,17 @@ from tweepy import OAuthHandler
 from tweepy import API
 import os
 import time
+import psycopg2
+import urlparse
 
 consumer_key = os.environ['consumer_key'] 
 consumer_secret = os.environ['consumer_secret']
 access_token = os.environ['access_token']
 access_token_secret = os.environ['access_token_secret']
+
+database_url = os.environ['database_url']
+
+
 
 HASH_TAG = "#hackyyc"
 
@@ -26,14 +32,71 @@ HASH_TAG = "#hackyyc"
     t.string   "text"
 """
 
+def get_db_conn():
+	urlparse.uses_netloc.append("postgres")
+	url = urlparse.urlparse(database_url)
+	conn = psycopg2.connect(
+		database=url.path[1:],
+		user=url.username,
+		password=url.password,
+		host=url.hostname,
+		port=url.port
+	)
+	return conn
+
+
+
+def db_test_insert(tweet_id, image_url, username, created_at, latitude, logitude, raw, text):
+	conn = get_db_conn()
+	cursor = conn.cursor()
+#id | tweet_id | image_url | username | created_at | latitude | longitude | raw | text
+	sql = ("INSERT INTO interesting_tweets (tweet_id, "
+						"image_url, "
+						"username, "
+						"created_at, "
+						"latitude, "
+						"longitude, "
+						"raw, "
+						"text) "
+		#"VALUES (%s, %s, %s, %s, %s, %s, %s, %s) " #See http://stackoverflow.com/a/15841000/443779
+		"SELECT %s, %s, %s, %s, %s, %s, %s, %s "
+		"WHERE "
+		"NOT EXISTS ( "
+		        "SELECT tweet_id FROM interesting_tweets WHERE tweet_id = CAST(%s AS TEXT) " 
+			")"
+							)
+	data = (tweet_id, image_url, username, created_at, latitude, logitude, raw, text, tweet_id)
+
+	cursor.execute(sql, data)
+	conn.commit()
+	cursor.close()
+	conn.close()
+					
+
+
 def process_photo(**kwargs):
-	for key, value in kwargs.iteritems():
-		if hasattr(value, 'encode'):
-			ascii_value = value.encode("ascii","ignore")
-			print "%s : %s" % (key, ascii_value)
-	print '---'
-
-
+	"""
+				tweet_id = tweet_id
+				image_url = real_url,
+				username = uname,
+				text = tweet_text,
+				string = tweet_text,
+				geo = geo,
+				coor = coor,
+				source = source,
+				datetime = created_at,
+				mid = mid,
+	def db_test_insert(tweet_id, image_url, username, created_at, latitude, logitude, raw, text):
+	"""
+	db_test_insert(kwargs.get('tweet_id'),
+			kwargs.get('image_url'),
+			kwargs.get('username'), 
+			kwargs.get('created_at'),
+			kwargs.get('latitude'),
+			kwargs.get('logitude'),
+			kwargs.get('raw'),
+			kwargs.get('text')
+			)
 
 if __name__ == '__main__':
 	while True:	
@@ -43,7 +106,9 @@ if __name__ == '__main__':
 		api = API(auth)
 
 		results = api.search(q=HASH_TAG, include_entities = True)
+
 		for result in results:
+
 			uid = result.author.id
 			uname = result.author.name
 			tweet_text = result.text
@@ -68,8 +133,9 @@ if __name__ == '__main__':
 							geo = geo,
 							coor = coor,
 							source = source,
-							datetime = created_at,
+							created_at = created_at,
 							mid = mid,
 						)
+						
 						#print mid TODO: NEED mid
 		time.sleep(15)
