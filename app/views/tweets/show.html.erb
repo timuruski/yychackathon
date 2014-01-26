@@ -1,0 +1,63 @@
+<ol class="breadcrumb">
+  <li><a href="/campaigns">Campaigns</a></li>
+  <li class="active">YYC Hackathon</li>
+</ol>
+
+<div class="row">
+  <h1>YYC Hackathon</h1>
+  <div class="col-md-6">
+    <img src="/images/geofence.png" />
+  </div>
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <strong>Ben Stevenson</strong> @bennet_stevens
+      <p>Thanks <a>@AcceleratorYYC</a> <a>@MolsonCoorsCA</a> yet another cold one into the breach. <a>#hackyyc</a></p>
+    </div>
+    <div class="thumbnail">
+      <strong>Steven Habbi</strong> @stevenhabbi
+      <p>I just dropped into the <a>#yychackathon</a> <a>@AcceleratorYYC</a>. Folks are creating some pretty cool stuff. Judging could be tight on Sunday. <a>#YYC</a></p>
+    </div>
+    <div class="thumbnail">
+      <strong>Steven Habbi</strong> @stevenhabbi
+      <p><a>@AcceleratorYYC</a> How are things going at the <a>#YYCHackathon?</a></p>
+    </div>
+    <div class="thumbnail">
+      <strong>MRU MKTG Society</strong> @MRUmktgsociety
+      <p>Hey <a>#MRU</a> and members interested in winning $50k? if you have a great  <a>#creativeidea</a> check out <a>#YYChackathon</a> <a>http://www.acceleratoryyc.com/critical-mass-hackathon-jan2014/</a> … </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<% content_for :head do %>
+<script>
+  $(function () {
+    var options = {};
+    $('#myModal').modal();
+  });
+</script>
+<% end %>
