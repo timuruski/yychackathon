@@ -8,6 +8,7 @@ import os
 import time
 import psycopg2
 import urlparse
+import urllib2
 
 consumer_key = os.environ['consumer_key'] 
 consumer_secret = os.environ['consumer_secret']
@@ -50,7 +51,7 @@ def db_test_insert(tweet_id, image_url, username, created_at, latitude, logitude
 	conn = get_db_conn()
 	cursor = conn.cursor()
 #id | tweet_id | image_url | username | created_at | latitude | longitude | raw | text
-	sql = ("INSERT INTO interesting_tweets (tweet_id, "
+	sql_insert_tweet = ("INSERT INTO interesting_tweets (tweet_id, "
 						"image_url, "
 						"username, "
 						"created_at, "
@@ -64,11 +65,45 @@ def db_test_insert(tweet_id, image_url, username, created_at, latitude, logitude
 		"NOT EXISTS ( "
 		        "SELECT tweet_id FROM interesting_tweets WHERE tweet_id = CAST(%s AS TEXT) " 
 			")"
-							)
+		"RETURNING id"
+			)
 	data = (tweet_id, image_url, username, created_at, latitude, logitude, raw, text, tweet_id)
 
-	cursor.execute(sql, data)
+	cursor.execute(sql_insert_tweet, data)
+
+	try:
+
+		id_of_new_row = cursor.fetchone()[0]
+	except TypeError:
+		#tweet insert didn't go ... we've likely already writen this tweet
+		return
 	conn.commit()
+
+	"""
+ id                   | integer                | not null default nextval('images_id_seq'::regclass)
+ interesting_tweet_id | integer                |
+ original_url         | character varying(255) |
+ media_id             | character varying(255) |
+ data                 | bytea
+	"""
+	
+	if id_of_new_row:
+		image_data = urllib2.urlopen(image_url).read()
+		sql_insert_image = ( "INSERT INTO images (interesting_tweet_id, "
+					" original_url, "
+					" media_id, "
+					" data  ) "
+				" SELECT %s "
+				" WHERE "
+				" NOT EXISTS ( "
+					" SELECT media_id FROM images WHERE media_id = CAST(%s AS TEST) "
+				")"
+				)
+
+		data_insert_image = (id_of_new_row, image_url, mid, psycopg2.Binary(image_data))
+		cursor.execute(sql_insert_image, data_insert_image)
+		conn.commit()	
+	
 	cursor.close()
 	conn.close()
 					
