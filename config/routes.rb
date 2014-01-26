@@ -1,4 +1,11 @@
 ManagerSite::Application.routes.draw do
+  resources :campaigns, only: [:index, :show, :new] do
+    resources :tweets, only: [:index, :show] do
+      get 'reply', on: :member
+    end
+    resources :replies, only: [:index, :show]
+  end
+
   resources :interesting_tweets, only: [:index, :show, :destroy]
   resources :images, only: [:index, :show, :create] do
     get 'download', on: :member
