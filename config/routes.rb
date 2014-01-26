@@ -1,6 +1,8 @@
 ManagerSite::Application.routes.draw do
   resources :interesting_tweets, only: [:index, :show, :destroy]
-  resources :images, only: [:index, :show, :create]
+  resources :images, only: [:index, :show, :create] do
+    get 'download', on: :member
+  end
   resources :replies, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.

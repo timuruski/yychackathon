@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
-  before_action :set_image, only: [:show]
+  before_action :set_image, only: [:show, :download]
 
   def index
     render nothing: true
@@ -8,6 +8,13 @@ class ImagesController < ApplicationController
 
   def show
     send_data @image.data, type: "image/jpg", disposition: "inline"
+  end
+
+  def download
+    send_data @image.data,
+      filename: 'file.jpg',
+      type: "image/jpg",
+      disposition: "attachment"
   end
 
   def set_image
